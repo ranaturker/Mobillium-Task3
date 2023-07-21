@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.fragment.app.FragmentContainerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentContainer"
-android:name="com.ranaturker.task3.part1.CounterFragment"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-    tools:layout="@layout/fragment_counter">
-</androidx.fragment.app.FragmentContainerView>
+    android:name="com.ranaturker.task3.part1.CounterFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout="@layout/fragment_counter"></androidx.fragment.app.FragmentContainerView>
 
 
 
