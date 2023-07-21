@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Task3</string>
+
+    //button
+    <string name="increament_button">Increase Counter</string>
+    //counter
+    <string name="counter_text">0</string>
+    //switch
+    <string name="use_viewModel">Use ViewModel</string>
+</resources>
