@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main) //Activity'nin görsel düzenini belirler
 
-        // Fragment'ı ekleyelim
+        // Fragment'ı ekleme
         if (savedInstanceState == null) { //Activity'nin ilk kez oluşturulma durumunu kontrol eder
             supportFragmentManager.beginTransaction() //Fragmentları yönetmek için kullanılan işlem nesnesi
                 //fragmentContainer içinde başka bir Fragment varsa, onu CounterFragment ile değiştirir

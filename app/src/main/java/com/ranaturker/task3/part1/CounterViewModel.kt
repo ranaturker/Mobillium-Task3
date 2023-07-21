@@ -9,7 +9,7 @@ class CounterViewModel : ViewModel() {
     val counterLiveData: LiveData<Int>
         get() = _counterLiveData
 
-    // Değişkenimizi tutmak için bir alan oluşturalım
+    // Değişkenimizi tutmak için bir alan oluşturma
     private var counter = 0
 
     init {

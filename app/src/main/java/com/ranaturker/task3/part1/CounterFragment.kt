@@ -28,23 +28,23 @@ class CounterFragment : Fragment() {
         incrementButton = view.findViewById(R.id.incrementButton)
         viewModelSwitch = view.findViewById(R.id.viewModelSwitch)
 
-        // ViewModel ile LiveData'yı gözlemleyerek sayaç değerini güncelleyelim
+        // ViewModel ile LiveData'yı gözlemleyerek sayaç değerini güncelleme
         viewModel.counterLiveData.observe(viewLifecycleOwner) { count ->
             counterTextView.text = count.toString()
         }
 
-        // Butona tıklama olayını ViewModel'a bağlayalım
+        // Butona tıklama olayını ViewModel'a bağlama
         incrementButton.setOnClickListener {
             viewModel.incrementCounter()
         }
 
-        // Switch'in değişikliklerini dinleyerek ViewModel ve UI Controller arasında geçiş yapalım
+        // Switch'in değişikliklerini dinleyerek ViewModel ve UI Controller arasında geçiş yapma
         viewModelSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                // ViewModel tarafını aktifleştir
+                // ViewModel tarafını aktifleştirme
                 viewModel.setCounter(viewModel.getCurrentCounterValue())
             } else {
-                // UI Controller tarafını aktifleştir
+                // UI Controller tarafını aktifleştirme
                 viewModel.setCounter(counterTextView.text.toString().toInt())
             }
         }
