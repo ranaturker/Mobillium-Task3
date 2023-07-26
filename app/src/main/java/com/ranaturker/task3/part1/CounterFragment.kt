@@ -10,46 +10,77 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ranaturker.task3.R
+import com.ranaturker.task3.databinding.FragmentCounterBinding
 
 class CounterFragment : Fragment() {
-    private lateinit var counterTextView: TextView
-    private lateinit var incrementButton: Button
-    private lateinit var viewModelSwitch: Switch
 
-    // Viewmodel bağlantısı
+    // Sayaç değişkeni olan "counter" tanımlama
+    private var counter = 0
+
+    // ViewModel sınıfının nesnesi "viewModel"ı oluşturma
     private val viewModel: CounterViewModel by viewModels()
 
+    // ViewBinding için değişken "binding" oluşturma
+    private lateinit var binding: FragmentCounterBinding
+
+    // Fragment oluşturulduğunda çağrılan onCreateView() fonksiyonu
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_counter, container, false)
-        counterTextView = view.findViewById(R.id.counterTextView)
-        incrementButton = view.findViewById(R.id.incrementButton)
-        viewModelSwitch = view.findViewById(R.id.viewModelSwitch)
+        // ViewBinding kullanarak fragment_counter.xml layout'u ile bağlama
+        binding = FragmentCounterBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        // ViewModel ile LiveData'yı gözlemleyerek sayaç değerini güncelleme
-        viewModel.counterLiveData.observe(viewLifecycleOwner) { count ->
-            counterTextView.text = count.toString()
-        }
+    // Fragment oluşturulduğunda çağrılan onViewCreated() fonksiyonu
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Butona tıklama olayını ViewModel'a bağlama
-        incrementButton.setOnClickListener {
-            viewModel.incrementCounter()
-        }
-
-        // Switch'in değişikliklerini dinleyerek ViewModel ve UI Controller arasında geçiş yapma
-        viewModelSwitch.setOnCheckedChangeListener { _, isChecked ->
+        notViewModel()
+        // viewModelSwitch adlı switch bileşeninin durumunu dinleme
+        binding.viewModelSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                // ViewModel tarafını aktifleştirme
-                viewModel.setCounter(viewModel.getCurrentCounterValue())
+                // Switch açıldıysa, ViewModel kullanarak sayaç işlemlerini yapacak metodu çağırma
+                useViewModel()
             } else {
-                // UI Controller tarafını aktifleştirme
-                viewModel.setCounter(counterTextView.text.toString().toInt())
+                // Switch kapalıysa, ViewModel kullanmadan sayaç işlemlerini yapacak metodu çağırma
+                notViewModel()
             }
         }
+    }
 
-        return view
+    // ViewModel kullanarak sayaç işlemlerini yapacak metod
+    fun useViewModel() = with(binding) {
+        // ViewModel'den sayaç değerini alma
+        counter = viewModel.getCounter()
+
+        // TextView'e güncel sayaç değerini atama
+        counterTextView.text = counter.toString()
+
+        // Arttırma butonuna tıklandığında ViewModel ile sayaç değerini arttırma
+        incrementButton.setOnClickListener {
+            viewModel.incrementCounter()
+
+            // Arttırılan yeni sayaç değerini alma ve TextView'e atama
+            counter = viewModel.getCounter()
+            counterTextView.text = counter.toString()
+        }
+    }
+
+    // ViewModel kullanmadan sayaç işlemlerini yapacak metod.
+    fun notViewModel() = with(binding) {
+        // TextView'e mevcut sayaç değerini atama
+        counterTextView.text = counter.toString()
+
+        // Arttırma butonuna tıklandığında sayaç değerini arttırma
+        incrementButton.setOnClickListener {
+            ++counter
+
+            // Yeni arttırılmış sayaç değerini TextView'e atama
+            counterTextView.text = counter.toString()
+        }
     }
 }
+
 

@@ -1,32 +1,24 @@
 package com.ranaturker.task3.part1
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class CounterViewModel : ViewModel() {
-    private val _counterLiveData = MutableLiveData<Int>()
-    val counterLiveData: LiveData<Int>
-        get() = _counterLiveData
 
-    // Değişkenimizi tutmak için bir alan oluşturma
+    // Private bir değişken tanımlama
     private var counter = 0
 
-    init {
-        _counterLiveData.value = counter
-    }
-
+    // "incrementCounter" fonksiyonu ile sayaç değerini arttırma
     fun incrementCounter() {
         counter++
-        _counterLiveData.value = counter
     }
 
-    fun setCounter(newValue: Int) {
-        counter = newValue
-        _counterLiveData.value = counter
-    }
-
-    fun getCurrentCounterValue(): Int {
+    // "getCounter" fonksiyonu ile sayaç değerini integer döndürme
+    fun getCounter(): Int {
         return counter
     }
 }
+
+/* Sayaç değeri, ViewModel içinde saklanarak,
+  verilerin kullanıcı arayüzüyle doğrudan bağlantısını sağlayarak,
+  veri değişiklikleri durumunda otomatik olarak güncellenmesini sağlar.
+ */

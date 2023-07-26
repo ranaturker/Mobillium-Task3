@@ -1,8 +1,8 @@
-package com.ranaturker.task3
+package com.ranaturker.task3.part1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ranaturker.task3.part1.CounterFragment
+import com.ranaturker.task3.R
 
 class MainActivity : AppCompatActivity() {
 
